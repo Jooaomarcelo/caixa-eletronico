@@ -28,12 +28,12 @@ class Conta {
 }
 
 class Poupanca extends Conta {
-  double? taxaDeJuros;
+  double taxaDeJuros;
 
   Poupanca({String? titular, this.taxaDeJuros = 0}) : super(titular: titular);
 
   void aplicarJuros() {
-    var rendimento = taxaDeJuros! * _saldo;
+    var rendimento = taxaDeJuros * _saldo;
     _saldo += rendimento;
     print(
         'Rendimento: R\$${rendimento.toStringAsFixed(2)}\nSaldo atual: R\$${_saldo.toStringAsFixed(2)}');
@@ -41,18 +41,18 @@ class Poupanca extends Conta {
 
   @override
   String toString() {
-    return 'Tipo de conta: Poupança\nSaldo: R\$${_saldo.toStringAsFixed(2)}';
+    return 'Tipo de conta: Poupança\nSaldo: R\$${_saldo.toStringAsFixed(2)}\nTaxa de juros: $taxaDeJuros';
   }
 }
 
 class Corrente extends Conta {
-  double? limite;
+  double limite;
 
   Corrente({String? titular, this.limite = 1000}) : super(titular: titular);
 
   @override
   void saque(double valor) {
-    if (_saldo - valor >= -limite!) {
+    if (_saldo - valor >= -limite) {
       _saldo -= valor;
     }
 
@@ -61,6 +61,6 @@ class Corrente extends Conta {
 
   @override
   String toString() {
-    return 'Tipo de conta: Corrente\nSaldo: R\$${_saldo.toStringAsFixed(2)}';
+    return 'Tipo de conta: Corrente\nSaldo: R\$${_saldo.toStringAsFixed(2)}\nLimite: R\$${limite.toStringAsFixed(2)}';
   }
 }
