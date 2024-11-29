@@ -2,13 +2,13 @@ import '../model/cliente.dart';
 
 class ControladorCliente {
   final List<Cliente> clientes = [
-    Cliente(cpf: 12345678910, nome: 'Fulano', senha: '123456', conta: 0),
+    Cliente(cpf: 12345678910, nome: 'Fulano', senha: '123456', tipoConta: 0),
   ];
 
   void cadastrarCliente(
-      {int? cpf, String? nome, String senha = '', int? conta}) {
+      {int? cpf, String? nome, String senha = '', int? tipoConta}) {
     // Validando campos
-    if (cpf == null || nome == null || senha.isEmpty || conta == null) {
+    if (cpf == null || nome == null || senha.isEmpty || tipoConta == null) {
       print('\nCampos não podem estar vazios.');
       return;
     }
@@ -25,16 +25,17 @@ class ControladorCliente {
       return;
     }
 
-    // Validando conta
-    if (conta < 0 || conta > 1) {
-      print('\nTipo de conta inválido.');
+    // Validando tipoConta
+    if (tipoConta < 0 || tipoConta > 1) {
+      print('\nTipo de tipoConta inválido.');
       return;
     }
 
     //Fim da validação dos campos
 
     // Novo cliente
-    var cliente = Cliente(cpf: cpf, nome: nome, senha: senha);
+    var cliente =
+        Cliente(cpf: cpf, nome: nome, senha: senha, tipoConta: tipoConta);
 
     // Lista não vazia e CPF já cadastrado
     if (!clientes.isEmpty && (clientes.any((cliente) => cliente.cpf == cpf))) {

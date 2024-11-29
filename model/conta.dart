@@ -11,6 +11,7 @@ class Conta {
   void depositar(double valor) {
     if (valor < 0) {
       print('Valor de depósito inválido!');
+      return;
     }
     _saldo += valor;
     print(
@@ -35,16 +36,24 @@ class Poupanca extends Conta {
 
   Poupanca({String? titular}) : super(titular: titular);
 
-  void aplicarJuros() {
-    var rendimento = _taxaDeJuros * _saldo;
-    _saldo += rendimento;
+  double _aplicarJuros() {
+    return _taxaDeJuros * _saldo;
+  }
+
+  void saque(double valor) {
+    if (_saldo + _aplicarJuros() - valor < 0) {
+      print('Saldo insuficiente para efetuar saque!');
+      return;
+    }
+
+    _saldo += _aplicarJuros() - valor;
     print(
-        'Rendimento: R\$${rendimento.toStringAsFixed(2)}\nSaldo atual: R\$${_saldo.toStringAsFixed(2)}');
+        'Saque de R\$${valor.toStringAsFixed(2)} realizado.\nSaldo atual R\$${_saldo.toStringAsFixed(2)}');
   }
 
   @override
   String toString() {
-    return 'Tipo de conta: Poupança\nSaldo: R\$${_saldo.toStringAsFixed(2)}\nTaxa de juros: $_taxaDeJuros';
+    return 'Tipo de conta: Poupança\nSaldo: R\$${(_saldo + _aplicarJuros()).toStringAsFixed(2)}\nTaxa de juros: $_taxaDeJuros';
   }
 }
 

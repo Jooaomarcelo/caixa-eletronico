@@ -40,7 +40,6 @@ class ControladorCaixa {
     final cliente = _ctrlCliente.autenticarCliente(cpf: cpf, senha: senha!);
     if (cliente != null) {
       _menuCliente(cliente);
-      print(cliente);
     }
   }
 
@@ -57,9 +56,47 @@ class ControladorCaixa {
     stdout.write('Informe sua senha: ');
     String? senha = stdin.readLineSync();
     stdout.write('Informe o tipo de conta (0 - Poupança | 1 - Corrente): ');
-    int? conta = int.tryParse(stdin.readLineSync()!);
+    int? tipoConta = int.tryParse(stdin.readLineSync()!);
 
     _ctrlCliente.cadastrarCliente(
-        cpf: cpf, nome: nome, senha: senha!, conta: conta);
+        cpf: cpf, nome: nome, senha: senha!, tipoConta: tipoConta);
+  }
+
+  _menuCliente(var cliente) {
+    while (true) {
+      print('\n\n\n---- Bem-vindo, ${cliente.nome} -----\n');
+      print('1. Informações da conta');
+      print('2. Saque');
+      print('3. Depósito');
+      print('4. Sair');
+      stdout.write('Escolha uma opção: ');
+      String? opcao = stdin.readLineSync();
+      print(''); // Pular linha
+
+      switch (opcao) {
+        case '1':
+          print('----------------------------\n');
+          print(cliente);
+          print('\nPressione uma tecla para voltar: ');
+          stdin.readLineSync();
+          break;
+        case '2':
+          stdout.write('Informe o valor do saque: ');
+          double? valor = double.tryParse(stdin.readLineSync()!);
+          cliente.conta!.saque(valor!);
+          print(''); // Pular linha
+          break;
+        case '3':
+          stdout.write('Informe o valor do depósito: ');
+          double? valor = double.tryParse(stdin.readLineSync()!);
+          cliente.conta!.depositar(valor!);
+          print(''); // Pular linha
+          break;
+        case '4':
+          return;
+        default:
+          print('Opção inválida');
+      }
+    }
   }
 }

@@ -6,12 +6,9 @@ class Cliente {
   String? _senha;
   Conta? conta;
 
-  Cliente({this.cpf, this.nome, String? senha, int? conta, double? limite}) {
-    if (conta == 1)
-      this.conta = Poupanca(titular: nome);
-    else {
-      this.conta = Corrente(titular: nome);
-    }
+  Cliente({this.cpf, this.nome, String? senha, int? tipoConta}) {
+    this.conta =
+        tipoConta == 0 ? Poupanca(titular: nome) : Corrente(titular: nome);
     this._senha = senha;
   }
 
