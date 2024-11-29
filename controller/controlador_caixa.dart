@@ -20,11 +20,25 @@ class ControladorCaixa {
           _cadastro();
           break;
         case '3':
-          print('Muito obrigado por utilizar nossos serviços!\nVolte sempre!');
+          print(
+              '\nMuito obrigado por utilizar nossos serviços!\nVolte sempre!');
           return;
         default:
           print('Opção inválida');
       }
+    }
+  }
+
+  void _login() {
+    stdout.write('Informe seu CPF: ');
+    String? cpf = stdin.readLineSync();
+    stdout.write('Informe sua senha: ');
+    String? senha = stdin.readLineSync();
+    print('\nAutenticando...\n');
+
+    final cliente = _ctrlCliente.autenticarCliente(cpf: cpf, senha: senha);
+    if (cliente != null) {
+      _menuCliente(cliente);
     }
   }
 }

@@ -1,7 +1,9 @@
 import '../model/cliente.dart';
 
 class ControladorCliente {
-  final List<Cliente> clientes = [];
+  final List<Cliente> clientes = [
+    Cliente(cpf: '12345678910', nome: 'Fulano', senha: '123456', conta: 0),
+  ];
 
   void cadastrarCliente(
       {String cpf = '', String nome = '', String senha = '', int? conta}) {
@@ -30,9 +32,9 @@ class ControladorCliente {
     return;
   }
 
-  Cliente? autenticarCliente({cpf, senha}) {
+  Cliente? autenticarCliente({cpf = '', senha = ''}) {
     // Validando campos
-    if (cpf == null || senha == null) {
+    if (cpf.isEmpty || senha.isEmpty) {
       print('Campos não podem estar vazios.');
       return null;
     }
@@ -53,7 +55,6 @@ class ControladorCliente {
     }
 
     // Senha correta
-    print(cliente);
     return cliente;
   }
 }
