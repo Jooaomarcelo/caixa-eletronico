@@ -1,7 +1,7 @@
 import 'conta.dart';
 
 class Cliente {
-  String? cpf;
+  int? cpf;
   String? nome;
   String? _senha;
   Conta? conta;
