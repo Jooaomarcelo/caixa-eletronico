@@ -38,6 +38,11 @@ class Poupanca extends Conta {
     print(
         'Rendimento: R\$${rendimento.toStringAsFixed(2)}\nSaldo atual: R\$${_saldo.toStringAsFixed(2)}');
   }
+
+  @override
+  String toString() {
+    return 'Tipo de conta: Poupança\nSaldo: R\$${_saldo.toStringAsFixed(2)}';
+  }
 }
 
 class Corrente extends Conta {
@@ -52,5 +57,10 @@ class Corrente extends Conta {
     }
 
     print('Limite excedido!');
+  }
+
+  @override
+  String toString() {
+    return 'Tipo de conta: Corrente\nSaldo: R\$${_saldo.toStringAsFixed(2)}';
   }
 }
