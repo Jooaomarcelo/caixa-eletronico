@@ -21,19 +21,22 @@ class Conta {
   void saque(double valor) {
     if (_saldo - valor < 0) {
       print('Saldo insuficiente para efetuar saque!');
+      return;
     }
 
     _saldo -= valor;
+    print(
+        'Saque de R\$${valor.toStringAsFixed(2)} realizado.\nSaldo atual R\$${_saldo.toStringAsFixed(2)}');
   }
 }
 
 class Poupanca extends Conta {
-  double taxaDeJuros;
+  double _taxaDeJuros = 0.1;
 
-  Poupanca({String? titular, this.taxaDeJuros = 0}) : super(titular: titular);
+  Poupanca({String? titular}) : super(titular: titular);
 
   void aplicarJuros() {
-    var rendimento = taxaDeJuros * _saldo;
+    var rendimento = _taxaDeJuros * _saldo;
     _saldo += rendimento;
     print(
         'Rendimento: R\$${rendimento.toStringAsFixed(2)}\nSaldo atual: R\$${_saldo.toStringAsFixed(2)}');
@@ -41,26 +44,29 @@ class Poupanca extends Conta {
 
   @override
   String toString() {
-    return 'Tipo de conta: Poupança\nSaldo: R\$${_saldo.toStringAsFixed(2)}\nTaxa de juros: $taxaDeJuros';
+    return 'Tipo de conta: Poupança\nSaldo: R\$${_saldo.toStringAsFixed(2)}\nTaxa de juros: $_taxaDeJuros';
   }
 }
 
 class Corrente extends Conta {
-  double limite;
+  double _limite = 4000;
 
-  Corrente({String? titular, this.limite = 1000}) : super(titular: titular);
+  Corrente({String? titular}) : super(titular: titular);
 
   @override
   void saque(double valor) {
-    if (_saldo - valor >= -limite) {
-      _saldo -= valor;
+    if (_saldo - valor < -_limite) {
+      print('Limite excedido!');
+      return;
     }
 
-    print('Limite excedido!');
+    _saldo -= valor;
+    print(
+        'Saque de R\$${valor.toStringAsFixed(2)} realizado.\nSaldo atual R\$${_saldo.toStringAsFixed(2)}');
   }
 
   @override
   String toString() {
-    return 'Tipo de conta: Corrente\nSaldo: R\$${_saldo.toStringAsFixed(2)}\nLimite: R\$${limite.toStringAsFixed(2)}';
+    return 'Tipo de conta: Corrente\nSaldo: R\$${_saldo.toStringAsFixed(2)}\nLimite: R\$${_limite.toStringAsFixed(2)}';
   }
 }
